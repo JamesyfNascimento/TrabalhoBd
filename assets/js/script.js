@@ -3,6 +3,28 @@
 $(function () {  
   // mascara para o campo cpf
   $("#inputCpf").mask('000.000.000-00', { reverse: true });
+
+
+  // url web service dos estados
+  var url_webService_uf = "http://www.geonames.org/childrenJSON?geonameId=3469034";
+  var optionsUf = "<option selected>Escolha Seu Estado</option>";
+
+  /* Ajax consumindo o webservice e atualizando a lista de estados*/
+  $.ajax({
+    type: "POST",
+    url: url_webService_uf,
+    dataType: "json",
+    success: function (data) { /* sucesso */
+      data.geonames.forEach(element => {
+        optionsUf += "<option value='" + element.toponymName + "'>" + element.toponymName + "</option>";
+        
+      });
+
+      $("#selectUF").html(optionsUf); 
+      $("#selectUFEdit").html(optionsUf); 
+
+    }
+  });
   
 });
 
@@ -40,6 +62,9 @@ function atualizaTabela() {
 // Submit do form de cadastro
 $(document).on("submit", "#form-cadastro", function (event) {
   event.preventDefault();
+
+  console.log($("#selectUF").val());
+  
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
@@ -153,7 +178,6 @@ $(document).on("click", ".edita", function () {
       
 
       if (data.success) {
-        console.log(data.dataNascimento);
         
           // Reseta o form para evitar conflitos, preenche os campos e chama o modal
           $('#form-edita-registro')[0].reset();
@@ -167,12 +191,6 @@ $(document).on("click", ".edita", function () {
 
       } 
 
-    },
-    beforeSend: function () { /* antes de enviar */
-      
-    },
-    complete: function () { /* completo */
-      
     }
   });
 });

@@ -7,7 +7,7 @@ $nome = $_POST["inputNomeEdit"];
 $cpf = $_POST['inputCpfEdit'];
 $dataNasc = $_POST["inputDataNascEdit"];
 $peso = $_POST["inputPesoEdit"];
-$uf = $_POST["inputUfEdit"];
+$uf = $_POST["selectUFEdit"];
 $dataModificacao = date('Y-m-d h:i:s');
 
 $cpf_para_editar = $_POST['cpfParaEditar'];

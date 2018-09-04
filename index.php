@@ -56,8 +56,7 @@
           <div class="form-group col-md-4">
             <label for="selectUF">UF</label>
             <select id="selectUF" name="selectUF" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
+              <option selected>UF</option>
               <option value="1">...</option>
             </select>
           </div>
@@ -151,9 +150,7 @@
                 <div class="form-group col-md-6">
                   <label for="selectUFEdit">UF</label>
                   <select id="selectUFEdit" name="selectUFEdit" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                    <option value="1">...</option>
+                    <option selected>Escolha Seu Estado</option>
                   </select>
                 </div>
               </div>
@@ -172,7 +169,6 @@
 
 
     <!-- MODAL DE CONFIRMAÇÃO DA EXCLUSÃO -->
-    <!-- MODAL EDITAR REGISTRO -->
     <div class="modal fade" id="modalConfirmaExclusao" tabindex="-1" role="dialog" aria-labelledby="modalConfirmaExclusaoLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
