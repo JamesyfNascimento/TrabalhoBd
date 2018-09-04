@@ -1,0 +1,32 @@
+
+/* MARGIN */
+.m-xs{ margin: 3px;}
+.m-sm{ margin: 5px;}
+.m-md{ margin: 10px;}
+.m-lg{ margin: 15px;}
+
+.titulo{
+  margin: 50px 0px;
+}
+
+
+.container-form-cadastro{
+  margin-bottom: 80px;
+}
+
+.retornoForms{
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 40px;
+  border-radius: 15px;
+  padding: 20px;
+  z-index: 99999;
+}
+
+.conteudoRetorno{
+  color: #000;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
