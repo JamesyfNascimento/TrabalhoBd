@@ -2,7 +2,7 @@
  // configurações do banco
 include("../config/db.php");
 
-$sql = "SELECT * FROM pessoa WHERE 1 ORDER BY pessoa.dataCadastro DESC";
+$sql = "SELECT * FROM pessoa WHERE 1 ORDER BY pessoa.dataModificacao DESC";
 // $data = $obj->dataNascimento;
 $mensagem_retorno = "";
 
@@ -15,7 +15,7 @@ if ($result = mysqli_query($mysqli, $sql)) {
     $mensagem_retorno .= "  <td>$data</td>";
     $mensagem_retorno .= "  <td>$obj->peso</td>";
     $mensagem_retorno .= "  <td>$obj->uf</td>";
-    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='editar' cod='$obj->cpf' ><i class='fas fa-user-edit'></i></a> </td>";
+    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='edita' cod='$obj->cpf' ><i class='fas fa-user-edit'></i></a> </td>";
     $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='remove' cod='$obj->cpf' ><i class='fas fa-user-minus'></i></a> </td>";
     $mensagem_retorno .= "</tr>";
   }
