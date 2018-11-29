@@ -25,4 +25,47 @@ function validar_cpf($cpf)
   return $cpf {
     10} == ($resto < 2 ? 0 : 11 - $resto);
 }
+
+function validar_cnpj($cnpj)
+{
+  $cnpj = preg_replace('/[^0-9]/', '', (string)$cnpj);
+    // Valida tamanho
+  if (strlen($cnpj) != 14)
+    return false;
+    // Valida primeiro dígito verificador
+  for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++) {
+    $soma += $cnpj {
+      $i} * $j;
+    $j = ($j == 2) ? 9 : $j - 1;
+  }
+  $resto = $soma % 11;
+  if ($cnpj {
+    12} != ($resto < 2 ? 0 : 11 - $resto))
+    return false;
+    // Valida segundo dígito verificador
+  for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++) {
+    $soma += $cnpj {
+      $i} * $j;
+    $j = ($j == 2) ? 9 : $j - 1;
+  }
+  $resto = $soma % 11;
+  return $cnpj {
+    13} == ($resto < 2 ? 0 : 11 - $resto);
+}
+
+// A função abaixo demonstra o uso de uma expressão regular que identifica, de forma simples, telefones válidos no Brasil.
+// Nenhum DDD iniciado por 0 é aceito, e nenhum número de telefone pode iniciar com 0 ou 1.
+// Exemplos válidos: +55 (11) 98888-8888 / 9999-9999 / 21 98888-8888 / 5511988888888
+
+function phoneValidate($phone)
+{
+  $regex = '/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/';
+  if (preg_match($regex, $phone) == false) {
+            // O número não foi validado.
+    return false;
+  } else {
+            // Telefone válido.
+    return true;
+  }
+}
 ?>

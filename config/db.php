@@ -4,7 +4,7 @@
 $servidor = 'localhost';
 $usuario = 'root';
 $senha = 'root';
-$banco = 'gt4w';
+$banco = 'Trabalho';
 
 // Conecta-se ao banco de dados MySQL
 $mysqli = new mysqli($servidor, $usuario, $senha, $banco);

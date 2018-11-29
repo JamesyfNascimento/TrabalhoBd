@@ -2,21 +2,18 @@
  // configurações do banco
 include("../config/db.php");
 
-$sql = "SELECT * FROM pessoa WHERE 1 ORDER BY pessoa.dataModificacao DESC";
+$sql = "SELECT * FROM BUFFET WHERE 1 ORDER BY BUFFET.nome ASC";
 // $data = $obj->dataNascimento;
 $mensagem_retorno = "";
 
 if ($result = mysqli_query($mysqli, $sql)) {
   while ($obj = mysqli_fetch_object($result)) {
-    $data = date("d/m/Y", strtotime($obj->dataNascimento));
     $mensagem_retorno .= "<tr>";
     $mensagem_retorno .= "  <td>$obj->nome </td>";
-    $mensagem_retorno .= "  <td>$obj->cpf</td>";
-    $mensagem_retorno .= "  <td>$data</td>";
-    $mensagem_retorno .= "  <td>$obj->peso</td>";
-    $mensagem_retorno .= "  <td>$obj->uf</td>";
-    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='edita' cod='$obj->cpf' ><i class='fas fa-user-edit'></i></a> </td>";
-    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='remove' cod='$obj->cpf' ><i class='fas fa-user-minus'></i></a> </td>";
+    $mensagem_retorno .= "  <td>$obj->cnpj</td>";
+    $mensagem_retorno .= "  <td>-</td>";
+    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='edita' cod='$obj->cnpj' ><i class='fas fa-user-edit'></i></a> </td>";
+    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='remove' cod='$obj->cnpj' ><i class='fas fa-user-minus'></i></a> </td>";
     $mensagem_retorno .= "</tr>";
   }
   // Free result set
@@ -28,7 +25,7 @@ if ($result = mysqli_query($mysqli, $sql)) {
       'message' => $mensagem_retorno
     )
   );
-}else{
+} else {
   echo json_encode(
     array(
       'success' => false,

@@ -1,5 +1,5 @@
 
-<?php include("./config/db.php");?>
+<?php include("./config/db.php"); ?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Processo de seleção - Etapa: avaliação técnica</title>
+    <title>Trabalho Final - Cadastro de Buffet</title>
 
     <!-- Bootstrap core CSS -->
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
@@ -28,39 +28,26 @@
 
   <body class="bg-light">
 
-    <h1 class="text-center titulo">Processo de seleção - Etapa: avaliação técnica</h1>
+    <h1 class="text-center titulo">Trabalho Final - Cadastro de Buffet</h1>
 
     <!-- FORMULARIO DE CADASTRO -->
     <div class="container container-form-cadastro">
       <form id="form-cadastro">
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="inputNome">Nome*</label>
             <input type="text" class="form-control" id="inputNome" name="inputNome" placeholder="Nome">
           </div>
-          <div class="form-group col-md-6">
-            <label for="inputCpf">CPF*</label>
-            <input type="text" class="form-control" id="inputCpf" name="inputCpf" placeholder="CPF">
+          <div class="form-group col-md-4">
+            <label for="inputCnpj">Cnpj*</label>
+            <input type="text" class="form-control" id="inputCnpj" name="inputCnpj" placeholder="cnpj">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputTel">Telefone/Celular</label>
+            <input type="tel" class="form-control" id="inputTel" name="inputTel">
           </div>
         </div>
-        <div class="form-row">
-
-          <div class="form-group col-md-4">
-            <label for="inputDataNasc">Data Nascimento</label>
-            <input type="date" class="form-control" id="inputDataNasc" name="inputDataNasc">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputPeso">Peso - kg</label>
-            <input type="text" class="form-control" id="inputPeso" name="inputPeso" placeholder="Peso em kilograma">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="selectUF">UF</label>
-            <select id="selectUF" name="selectUF" class="form-control">
-              <option selected>UF</option>
-              <option value="1">...</option>
-            </select>
-          </div>
-        </div>
+        
         <button type="submit" class="btn btn-dark float-right">Cadastrar</button>
       </form>
     </div>
@@ -71,10 +58,8 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Nome</th>
-            <th scope="col">CPF</th>
-            <th scope="col">Data Nascimento</th>
-            <th scope="col">Peso</th>
-            <th scope="col">UF</th>
+            <th scope="col">CNPJ</th>
+            <th scope="col">Contato</th>
             <th class="text-center" scope="col">Editar</th>
             <th class="text-center" scope="col">Deletar</th>
           </tr>
@@ -83,21 +68,20 @@
 
           <?php 
 
-          $sql = "SELECT * FROM pessoa WHERE 1 ORDER BY pessoa.dataModificacao DESC";
+          $sql = "SELECT B.nome, B.cnpj, T.numero FROM `BUFFET` B JOIN `BUFFET_TELEFONES` T ON(B.cnpj = T.BUFFET_cnpj) WHERE 1 ORDER BY B.nome ASC";
 
           if ($result = mysqli_query($mysqli, $sql)) {
-            while ($obj = mysqli_fetch_object($result)) {
-              ;?>
+            while ($obj = mysqli_fetch_object($result)) {; ?>
+            
             <tr>
-              <td><?php echo $obj->nome ;?></td>
-              <td><?php echo $obj->cpf; ?></td>
-              <td><?php echo date("d/m/Y", strtotime($obj->dataNascimento)); ?></td>
-              <td><?php echo $obj->peso; ?></td>
-              <td><?php echo $obj->uf; ?></td>
-              <td class="text-center"><a href="#" class="edita" cod="<?php echo $obj->cpf; ?>"><i class="fas fa-user-edit"></i></a></td>
-              <td class="text-center"><a href="#" class="remove" cod="<?php echo $obj->cpf; ?>" ><i class="fas fa-user-minus"></i></a></td>
+              <td><?php echo $obj->nome; ?></td>
+              <td><?php echo $obj->cnpj; ?></td>
+              <td><?php echo $obj->numero; ?></td>
+              <td class="text-center"><a href="#" class="edita" cod="<?php echo $obj->cnpj; ?>"><i class="fas fa-user-edit"></i></a></td>
+              <td class="text-center"><a href="#" class="remove" cod="<?php echo $obj->cnpj; ?>" ><i class="fas fa-user-minus"></i></a></td>
             </tr>
               <?php
+
             }
             // Free result set
             mysqli_free_result($result);
@@ -123,7 +107,7 @@
 
             <!-- FORM ATUALIZAR REGISTRO -->
             <form id="form-edita-registro">
-              <input type="hidden" id="cpfParaEditar" name="cpfParaEditar" value="">
+              <input type="hidden" id="cnpjParaEditar" name="cnpjParaEditar" value="">
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="inputNomeEdit">Nome*</label>
@@ -132,27 +116,15 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputCpfEdit">CPF*</label>
-                  <input type="text" class="form-control" id="inputCpfEdit" name="inputCpfEdit" placeholder="CPF">
+                  <label for="inputCnpjEdit">cnpj*</label>
+                  <input type="text" class="form-control" id="inputCnpjEdit" name="inputCnpjEdit" placeholder="cnpj">
                 </div>
 
-                <div class="form-group col-md-6">
-                  <label for="inputDataNascEdit">Data Nascimento</label>
-                  <input type="date" class="form-control" id="inputDataNascEdit" name="inputDataNascEdit">
+                <div class="form-group col-md-4">
+                  <label for="inputTelEdit">Telefone/Celular</label>
+                  <input type="tel" class="form-control" id="inputTelEdit" name="inputTel">
                 </div>
                 
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="inputPesoEdit">Peso - kg</label>
-                  <input type="text" class="form-control" id="inputPesoEdit" name="inputPesoEdit" placeholder="Peso em kilograma">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="selectUFEdit">UF</label>
-                  <select id="selectUFEdit" name="selectUFEdit" class="form-control">
-                    <option selected>Escolha Seu Estado</option>
-                  </select>
-                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

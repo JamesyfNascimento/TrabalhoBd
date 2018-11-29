@@ -2,15 +2,15 @@
 // configurações do banco
 include("../config/db.php");
 
-// cpf a ser deletado
-$cpf = $_POST['cpf'];
+// cnpj a ser deletado
+$cnpj = $_POST['cnpj'];
 
 
-if(!empty($_POST)) {
-  if(isset($_POST['cpf'])) {
-    if (!empty($_POST['cpf'])) {
-      // Query para verificar se tem o cpf no banco
-      $sql = "DELETE FROM pessoa WHERE cpf = '$cpf'";
+if (!empty($_POST)) {
+  if (isset($_POST['cnpj'])) {
+    if (!empty($_POST['cnpj'])) {
+      // Query para verificar se tem o cnpj no banco
+      $sql = "DELETE FROM BUFFET WHERE cnpj = '$cnpj'";
       if ($mysqli->query($sql) === true) {
         echo json_encode(
           array(
@@ -28,11 +28,11 @@ if(!empty($_POST)) {
       }
 
       $mysqli->close();
-    } else{
+    } else {
       echo json_encode(
         array(
           'success' => false,
-          'message' => "Cpf não definido"
+          'message' => "cnpj não definido"
         )
       );
     }

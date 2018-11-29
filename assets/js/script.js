@@ -1,32 +1,24 @@
 
 
-$(function () {  
-  // mascara para o campo cpf
-  $("#inputCpf").mask('000.000.000-00', { reverse: true });
+$(function () {
+  // mascara para o campo cnpj
+  $("#inputCnpj").mask("99.999.999/9999-99", { reverse: true });
+  // mascara para celular/telefone
+  var SPMaskBehavior = function (val) {
+    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+  },
+    spOptions = {
+      onKeyPress: function (val, e, field, options) {
+        field.mask(SPMaskBehavior.apply({}, arguments), options);
+      }
+    };
+
+  $('#inputTel').mask(SPMaskBehavior, spOptions);
 
 
-  // url web service dos estados
-  var url_webService_uf = "http://www.geonames.org/childrenJSON?geonameId=3469034";
-  var optionsUf = "<option selected>Escolha Seu Estado</option>";
-
-  /* Ajax consumindo o webservice e atualizando a lista de estados*/
-  $.ajax({
-    type: "POST",
-    url: url_webService_uf,
-    dataType: "json",
-    success: function (data) { /* sucesso */
-      data.geonames.forEach(element => {
-        optionsUf += "<option value='" + element.toponymName + "'>" + element.toponymName + "</option>";
-        
-      });
-
-      $("#selectUF").html(optionsUf); 
-      $("#selectUFEdit").html(optionsUf); 
-
-    }
-  });
-  
 });
+
+
 
 // atualiza a tabela html de registro
 function atualizaTabela() {
@@ -41,19 +33,20 @@ function atualizaTabela() {
     type: "POST",
     url: url_script_php,
     async: true,
-    data: "", 
+    data: "",
     dataType: 'json',
     success: function (data) { /* sucesso */
-      if (data.success) {  
+
+      if (data.success) {
         $('.table tbody').html(data.message);
       }
     },
     beforeSend: function () { /* antes de enviar */
-      
+
     },
     complete: function () { /* completo */
-      
-      
+
+
     }
   });
 }
@@ -63,8 +56,6 @@ function atualizaTabela() {
 $(document).on("submit", "#form-cadastro", function (event) {
   event.preventDefault();
 
-  console.log($("#selectUF").val());
-  
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
@@ -81,6 +72,7 @@ $(document).on("submit", "#form-cadastro", function (event) {
     success: function (data) { /* sucesso */
 
       if (data.success) {
+
         $('.retornoForms').addClass('alert-success');
         $('.conteudoRetorno').html('Cadastrado com sucesso');
         atualizaTabela();
@@ -161,7 +153,7 @@ $(document).on("submit", "#form-edita-registro", function (event) {
 // Preenche modal com dados do registro que será editado
 $(document).on("click", ".edita", function () {
   // e.preventDefault();
-  var cpf = $(this).attr("cod");
+  var cnpj = $(this).attr("cod");
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
@@ -171,25 +163,23 @@ $(document).on("click", ".edita", function () {
   $.ajax({
     type: "POST",
     url: url_script_php,
-    data: { 'cpf': cpf },
+    data: { 'cnpj': cnpj },
     dataType: "json",
     success: function (data) { /* sucesso */
       console.log(data);
-      
+
 
       if (data.success) {
-        
-          // Reseta o form para evitar conflitos, preenche os campos e chama o modal
-          $('#form-edita-registro')[0].reset();
-          $('#inputNomeEdit').val(data.nome);
-          $('#inputCpfEdit').val(data.cpf);
-          $('#cpfParaEditar').val(data.cpf);
-          $('#inputDataNascEdit').val(data.dataNascimento);
-          $('#inputPesoEdit').val(data.peso);
-          $('#selectUFEdit').val(data.uf);
-          $('#modalEditarRegistro').modal('show');
 
-      } 
+        // Reseta o form para evitar conflitos, preenche os campos e chama o modal
+        $('#form-edita-registro')[0].reset();
+        $('#inputNomeEdit').val(data.nome);
+        $('#inputCnpjEdit').val(data.cnpj);
+        $('#cnpjParaEditar').val(data.cnpj);
+        $('#inputDataNascEdit').val();
+        $('#modalEditarRegistro').modal('show');
+
+      }
 
     }
   });
@@ -198,8 +188,8 @@ $(document).on("click", ".edita", function () {
 // Remove registro da tabela no evento do click de confirmação do modal
 $(document).on("click", "#removerRegistro", function () {
   // e.preventDefault();
-  
-  var cpf = $(this).attr("cod");
+
+  var cnpj = $(this).attr("cod");
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
@@ -209,7 +199,7 @@ $(document).on("click", "#removerRegistro", function () {
   $.ajax({
     type: "POST",
     url: url_script_php,
-    data: { 'cpf': cpf },
+    data: { 'cnpj': cnpj },
     dataType: "json",
     success: function (data) { /* sucesso */
 
@@ -250,7 +240,7 @@ $(document).on("click", ".remove", function () {
 
   var cod = $(this).attr("cod");
   $("#removerRegistro").attr("cod", cod);
-  
+
   $('#modalConfirmaExclusao').modal('show');
 
 });

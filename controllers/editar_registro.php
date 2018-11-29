@@ -4,21 +4,17 @@ include("../config/db.php");
 
 // valores do formulario recebidos via post
 $nome = $_POST["inputNomeEdit"];
-$cpf = $_POST['inputCpfEdit'];
-$dataNasc = $_POST["inputDataNascEdit"];
-$peso = $_POST["inputPesoEdit"];
-$uf = $_POST["selectUFEdit"];
-$dataModificacao = date('Y-m-d h:i:s');
+$cnpj = $_POST['inputCnpjEdit'];
 
-$cpf_para_editar = $_POST['cpfParaEditar'];
+$cnpj_para_editar = $_POST['cnpjParaEditar'];
 
 
 
 // Campos obrigatórios
 
 if (!empty($_POST)) {
-  if (isset($_POST['inputCpf']) || isset($_POST['inputNome'])) {
-    if (empty($_POST['inputCpf']) || empty($_POST['inputNome'])) {
+  if (isset($_POST['inputCnpjEdit']) || isset($_POST['inputNomeEdit'])) {
+    if (empty($_POST['inputCnpjEdit']) || empty($_POST['inputCnpjEdit'])) {
       echo json_encode(
         array(
           'success' => false,
@@ -31,21 +27,21 @@ if (!empty($_POST)) {
 }
 
 
-// verifica se o cpf é um cpf válido
-if (!validar_cpf($cpf)) {
+// verifica se o cnpj é um cnpj válido
+if (!validar_cnpj($cnpj)) {
   echo json_encode(
     array(
       'success' => false,
-      'message' => 'O Cpf fornecido não é um cpf válido'
+      'message' => 'O cnpj fornecido não é um cnpj válido'
     )
   );
   exit;
-} 
+}
 
 
- 
 
-$sql = "UPDATE pessoa SET pessoa.nome = '$nome', pessoa.cpf = '$cpf', pessoa.dataNascimento = '$dataNasc', pessoa.peso = '$peso', pessoa.uf = '$uf', pessoa.dataModificacao = '$dataModificacao' WHERE cpf = '$cpf_para_editar'";
+
+$sql = "UPDATE BUFFET SET BUFFET.nome = '$nome', BUFFET.cnpj = '$cnpj' WHERE BUFFET.cnpj = '$cnpj_para_editar'";
 
 if ($mysqli->query($sql) === true) {
   echo json_encode(
