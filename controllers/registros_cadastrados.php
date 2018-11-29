@@ -14,7 +14,7 @@ if ($result = mysqli_query($mysqli, $sql)) {
     $mensagem_retorno .= "  <td>$obj->nome </td>";
     $mensagem_retorno .= "  <td>$obj->cnpj</td>";
     $mensagem_retorno .= "  <td>$obj->numero</td>";
-    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='edita' cod='$obj->cnpj' ><i class='fas fa-user-edit'></i></a> </td>";
+    $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='edita' tel='$obj->numero' cod='$obj->cnpj' ><i class='fas fa-user-edit'></i></a> </td>";
     $mensagem_retorno .= "  <td class='text-center'> <a href='#' class='remove' cod='$obj->cnpj' ><i class='fas fa-user-minus'></i></a> </td>";
     $mensagem_retorno .= "</tr>";
   }

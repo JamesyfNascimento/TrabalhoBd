@@ -68,7 +68,7 @@
 
           <?php 
 
-          $sql = "SELECT B.nome, B.cnpj, T.numero FROM `BUFFET` B JOIN `BUFFET_TELEFONES` T ON(B.cnpj = T.BUFFET_cnpj) WHERE 1 ORDER BY B.nome ASC";
+          $sql = "SELECT B.nome, B.cnpj, T.numero FROM `BUFFET` B JOIN `BUFFET_TELEFONES` T ON(B.cnpj = T.BUFFET_cnpj) ORDER BY B.nome ASC";
 
           if ($result = mysqli_query($mysqli, $sql)) {
             while ($obj = mysqli_fetch_object($result)) {; ?>
@@ -77,7 +77,7 @@
               <td><?php echo $obj->nome; ?></td>
               <td><?php echo $obj->cnpj; ?></td>
               <td><?php echo $obj->numero; ?></td>
-              <td class="text-center"><a href="#" class="edita" cod="<?php echo $obj->cnpj; ?>"><i class="fas fa-user-edit"></i></a></td>
+              <td class="text-center"><a href="#" class="edita"  tel='<?php echo $obj->numero; ?>'  cod="<?php echo $obj->cnpj; ?>"><i class="fas fa-user-edit"></i></a></td>
               <td class="text-center"><a href="#" class="remove" cod="<?php echo $obj->cnpj; ?>" ><i class="fas fa-user-minus"></i></a></td>
             </tr>
               <?php
@@ -108,6 +108,7 @@
             <!-- FORM ATUALIZAR REGISTRO -->
             <form id="form-edita-registro">
               <input type="hidden" id="cnpjParaEditar" name="cnpjParaEditar" value="">
+              <input type="hidden" id="telParaEditar" name="telParaEditar" value="">
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="inputNomeEdit">Nome*</label>

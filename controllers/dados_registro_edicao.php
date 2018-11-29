@@ -7,16 +7,25 @@ if (!empty($_POST)) {
   if (isset($_POST['cnpj'])) {
     if (!empty($_POST['cnpj'])) {
       // Query para verificar se tem o cnpj no banco
-      $sql = "SELECT B.nome, B.cnpj, T.numero FROM `BUFFET` B JOIN `BUFFET_TELEFONES` T ON(B.cnpj = T.BUFFET_cnpj) WHERE 1 ORDER BY B.nome ASC";
-      if ($result = mysqli_query($mysqli, $sql)) {
-        $obj = mysqli_fetch_object($result);
+      //$sql = "SELECT * FROM BUFFET WHERE cnpj = '$cnpj'";
 
-        echo json_encode(
-          array(
+      $sql = "SELECT B.nome, B.cnpj, T.numero FROM `BUFFET` B JOIN `BUFFET_TELEFONES` T ON(B.cnpj = T.BUFFET_cnpj) ORDER BY B.nome ASC";
+      if ($result = mysqli_query($mysqli, $sql)) {
+
+        while ($obj = mysqli_fetch_object($result)) {
+          $list[] = array(
             'success' => true,
             'nome' => $obj->nome,
             'cnpj' => $obj->cnpj,
             'telefone' => $obj->numero
+          );
+        }
+
+
+        echo json_encode(
+          array(
+            'success' => true,
+            'listaDeBuffets' => $list
           )
         );
       } else {

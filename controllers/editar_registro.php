@@ -5,8 +5,12 @@ include("../config/db.php");
 // valores do formulario recebidos via post
 $nome = $_POST["inputNomeEdit"];
 $cnpj = $_POST['inputCnpjEdit'];
+$telefone = $_POST['inputTelEdit'];
+
+
 
 $cnpj_para_editar = $_POST['cnpjParaEditar'];
+$tel_para_editar = $_POST['telParaEditar'];
 
 
 
@@ -38,18 +42,17 @@ if (!validar_cnpj($cnpj)) {
   exit;
 }
 
-
-
-
 $sql = "UPDATE BUFFET SET BUFFET.nome = '$nome', BUFFET.cnpj = '$cnpj' WHERE BUFFET.cnpj = '$cnpj_para_editar'";
-
+$sqlTelefone = "UPDATE BUFFET_TELEFONES SET BUFFET_TELEFONES.numero = '$telefone', BUFFET_TELEFONES.BUFFET_cnpj = '$cnpj' WHERE BUFFET_TELEFONES.numero = '$tel_para_editar'";
 if ($mysqli->query($sql) === true) {
-  echo json_encode(
-    array(
-      'success' => true,
-      'message' => 'Editado com sucesso'
-    )
-  );
+  if ($mysqli->query($sqlTelefone) === true) {
+    echo json_encode(
+      array(
+        'success' => true,
+        'message' => 'Editado com sucesso'
+      )
+    );
+  }
 } else {
   echo json_encode(
     array(

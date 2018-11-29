@@ -5,7 +5,7 @@ $(function () {
   $("#inputCnpj").mask("99.999.999/9999-99", { reverse: true });
   // mascara para celular/telefone
   var SPMaskBehavior = function (val) {
-    return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    return val.replace(/\D/g, '').length === 11 ? '(00)00000-0000' : '(00)0000-00009';
   },
     spOptions = {
       onKeyPress: function (val, e, field, options) {
@@ -154,6 +154,7 @@ $(document).on("submit", "#form-edita-registro", function (event) {
 $(document).on("click", ".edita", function () {
   // e.preventDefault();
   var cnpj = $(this).attr("cod");
+  var tel = $(this).attr("tel");
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
@@ -166,20 +167,20 @@ $(document).on("click", ".edita", function () {
     data: { 'cnpj': cnpj },
     dataType: "json",
     success: function (data) { /* sucesso */
-      console.log(data);
-
-      console.log();
 
       if (data.success) {
+        $.each(data.listaDeBuffets, function (i, value) {
 
-        // Reseta o form para evitar conflitos, preenche os campos e chama o modal
-        $('#form-edita-registro')[0].reset();
-        $('#inputNomeEdit').val(data.nome);
-        $('#inputCnpjEdit').val(data.cnpj);
-        $('#cnpjParaEditar').val(data.cnpj);
-        $('#inputTelEdit').val(data.telefone);
-        $('#modalEditarRegistro').modal('show');
-
+          if (value.cnpj === cnpj && tel === value.telefone) {
+            $('#form-edita-registro')[0].reset();
+            $('#inputNomeEdit').val(value.nome);
+            $('#inputCnpjEdit').val(value.cnpj);
+            $('#cnpjParaEditar').val(value.cnpj);
+            $('#telParaEditar').val(value.telefone);
+            $('#inputTelEdit').val(value.telefone);
+            $('#modalEditarRegistro').modal('show');
+          }
+        });
       }
 
     }
