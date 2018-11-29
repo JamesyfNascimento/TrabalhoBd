@@ -168,6 +168,7 @@ $(document).on("click", ".edita", function () {
     success: function (data) { /* sucesso */
       console.log(data);
 
+      console.log();
 
       if (data.success) {
 
@@ -176,7 +177,7 @@ $(document).on("click", ".edita", function () {
         $('#inputNomeEdit').val(data.nome);
         $('#inputCnpjEdit').val(data.cnpj);
         $('#cnpjParaEditar').val(data.cnpj);
-        $('#inputDataNascEdit').val();
+        $('#inputTelEdit').val(data.telefone);
         $('#modalEditarRegistro').modal('show');
 
       }

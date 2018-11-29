@@ -122,7 +122,7 @@
 
                 <div class="form-group col-md-4">
                   <label for="inputTelEdit">Telefone/Celular</label>
-                  <input type="tel" class="form-control" id="inputTelEdit" name="inputTel">
+                  <input type="tel" class="form-control" id="inputTelEdit" name="inputTelEdit">
                 </div>
                 
               </div>
