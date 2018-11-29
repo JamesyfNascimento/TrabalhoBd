@@ -66,8 +66,8 @@ if ($get_total_rows[0] >= 1) {
   $sql = "INSERT INTO BUFFET (cnpj, nome)
         VALUES ('$cnpj', '$nome')";
 
-  $sqlTelBuffet = "INSERT INTO BUFFET_TELEFONES (cnpj, numero)
-        VALUES ('$cnpj', '$telefone')";
+  $sqlTelBuffet = "INSERT INTO BUFFET_TELEFONES (numero, BUFFET_cnpj)
+        VALUES ('$telefone', '$cnpj')";
 
   if ($mysqli->query($sql) === true) {
     if ($mysqli->query($sqlTelBuffet) === true) {
