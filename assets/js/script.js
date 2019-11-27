@@ -25,9 +25,9 @@ function atualizaTabela() {
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-  var url_script_php = "http://" + url[2] + "/" + url[3] + "/controllers/registros_cadastrados.php";
+  var url_script_php = "http://" + url[2] + "/" + url[3] + "/TrabalhoBd/controllers/registros_cadastrados.php";
 
-
+  alert("haushuahsa")
   /* Ajax */
   $.ajax({
     type: "POST",
@@ -36,7 +36,7 @@ function atualizaTabela() {
     data: "",
     dataType: 'json',
     success: function (data) { /* sucesso */
-
+      console.log(data)
       if (data.success) {
         $('.table tbody').html(data.message);
       }
@@ -59,7 +59,7 @@ $(document).on("submit", "#form-cadastro", function (event) {
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-  var url_script_php = "http://" + url[2] + "/" + url[3] + "/controllers/cadastrar_registro.php";
+  var url_script_php = "http://" + url[2] + "/" + url[3] + "/TrabalhoBd/controllers/cadastrar_registro.php";
 
 
   /* Ajax */
@@ -107,7 +107,7 @@ $(document).on("submit", "#form-edita-registro", function (event) {
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-  var url_script_php = "http://" + url[2] + "/" + url[3] + "/controllers/editar_registro.php";
+  var url_script_php = "http://" + url[2] + "/" + url[3] + "/TrabalhoBd/controllers/editar_registro.php";
 
 
   /* Ajax */
@@ -158,7 +158,7 @@ $(document).on("click", ".edita", function () {
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-  var url_script_php = "http://" + url[2] + "/" + url[3] + "/controllers/dados_registro_edicao.php";
+  var url_script_php = "http://" + url[2] + "/" + url[3] + "/TrabalhoBd/controllers/dados_registro_edicao.php";
 
   /* Ajax */
   $.ajax({
@@ -195,7 +195,7 @@ $(document).on("click", "#removerRegistro", function () {
 
   var url = window.location.href;
   url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-  var url_script_php = "http://" + url[2] + "/" + url[3] + "/controllers/deletar_registro.php";
+  var url_script_php = "http://" + url[2] + "/" + url[3] + "/TrabalhoBd/controllers/deletar_registro.php";
 
   /* Ajax */
   $.ajax({
